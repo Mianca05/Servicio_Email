@@ -1,0 +1,92 @@
+<div class="componente-formulario">
+    <div class="cuadro_imagen">
+        
+    </div>
+    <div class="cuadro_formulario">
+        <p class="titulo_formulario">Registro de nuevos Clientes</p>
+        <p class="subtitulo_formulario">¡Inscríbase ahora y aproveche nuestras promociones!</p>
+        <form  [formGroup]="form" novalidate (ngSubmit)="save($event)">
+            <div class="celda_formulario">
+                <p>
+                    Nombre:
+                    <input type="text" formControlName="name">
+                </p>
+                <div *ngIf="nameField!.errors && nameField!.dirty">
+                    <p class="aviso" *ngIf="nameField!.hasError('required')">
+                        * Debe colocar un nombre
+                    </p>
+                </div>
+            </div>
+            <div class="celda_formulario">
+                <p>
+                    Cédula:
+                 <!-- <input type="text" #ced (keyup.enter)="getCedul(ced.value)"   formControlName="cedula"> -->
+                 <input type="text"  formControlName="cedula">
+                </p>
+                <div *ngIf="cedulaField!.errors &&   cedulaField!.dirty">
+                    <p class="aviso" *ngIf="cedulaField!.hasError('required')">
+                        * Debe colocar un número de cédula
+                    </p>
+                    <p class="aviso" *ngIf="cedulaField!.hasError('pattern')">
+                        * El número de cédula solo debe contener números
+                    </p>
+                    <p class="aviso" *ngIf="cedulaField!.hasError('getCedulaEc')">
+                        * Su Nro. de cédula no es válida
+                    </p>
+                </div>
+            </div>
+            <div class="celda_formulario">
+                <p>
+                    Correo:
+                    <input type="email" formControlName="email">
+                </p>
+                <div *ngIf="emailField!.errors && emailField!.dirty">
+                    <p class="aviso" *ngIf="emailField!.hasError('required')">
+                        * Debe colocar un correo
+                    </p>
+                    <p class="aviso" *ngIf="emailField!.hasError('email')">
+                        * Debe colocar un correo válido
+                    </p>
+                </div>
+            </div>
+            <div class="celda_formulario">
+                <p>
+                    ¿Qué tipo de persona es?
+                    <select formControlName="persona">
+                        <option value="Estudiante">Estudiante</option>
+                        <option value="Profesor">Profesor</option>
+                        <option value="Profesional">Profesional Externo</option>
+                    </select>
+                </p>
+                <div *ngIf="personaField!.errors && personaField!.dirty">
+                    <p class="aviso" *ngIf="personaField!.hasError('required')">
+                        * Debe seleccionar el tipo de persona
+                    </p>
+                </div>
+            </div>
+            <div class="celda_formulario">
+                <p>
+                    ¿Qué curso desea seguir?
+                    <select formControlName="curso" class="form-control fa">
+                        <option value="Angular" class="fa"> Angular</option>
+                        <option value="React">React</option>
+                        <option value="Vue">Vue</option>
+                        <option value="Kotlin">Kotlin</option>
+                    </select>
+                </p>
+                <div *ngIf="cursoField!.errors && cursoField!.dirty">
+                    <p class="aviso" *ngIf="cursoField!.hasError('required')">
+                        * Debe seleccionar el tipo de curso que desea
+                    </p>
+                </div>
+            </div>
+            <div class="celda_recaptcha">
+                <ngx-recaptcha2 class="recaptcha" #captchaElem [siteKey]="siteKey" formControlName="recaptcha"></ngx-recaptcha2>
+            </div>
+            <div class="celda_botones">
+                <button id="{{estiloBoton}}" type="submit" [disabled]="form.invalid || loading" (click)="register()">{{buttionText}}</button>  
+                <button type="button" (click)="limpiar()" >Cancelar</button>  
+            </div>
+        </form>
+    </div>
+</div>
